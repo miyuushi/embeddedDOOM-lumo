@@ -1,0 +1,20 @@
+BasedOnStyle: LLVM
+Language: Cpp
+
+# Force pointers to the type for C++.
+DerivePointerAlignment: false
+PointerAlignment: Left
+BreakBeforeCloseBracketBracedList: true
+Cpp11BracedListStyle: false
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterStruct: false
+  AfterUnion: false
+  AfterEnum: false
+AlignAfterOpenBracket: DontAlign
+BinPackArguments: false
+BinPackParameters: false
+AllowAllArgumentsOnNextLine: false
+AllowAllParametersOfDeclarationOnNextLine: false
+
+ColumnLimit: 120

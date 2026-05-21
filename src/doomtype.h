@@ -28,10 +28,20 @@
 #ifndef __BYTEBOOL__
 #define __BYTEBOOL__
 // Fixed to use builtin bool type with C++.
-#ifdef __cplusplus
-typedef bool boolean;
+#ifndef __cplusplus
+  #ifdef true
+    // If true/false are already macros from <stdbool.h>, 
+    // we use a safe integer typedef instead of an enum.
+    typedef int boolean;
+  #else
+    // If they aren't defined yet, use the original Doom enum
+    #include <stdbool.h>
+    typedef int boolean;
+    // typedef enum {false, true} boolean;
+  #endif
 #else
-typedef enum {false, true} boolean;
+  // C++ handles bool natively
+  typedef bool boolean;
 #endif
 typedef unsigned char byte;
 #endif

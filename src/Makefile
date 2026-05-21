@@ -15,10 +15,11 @@ CC_HOST?=gcc
 #  make clean && cp support/stripchoice-E1M1ONLY.txt support/stripchoice.txt && cp support/stripchoice-E1M1ONLY.txt support/stripchoicebegin.txt && EXTRA_CFLAGS="-DE1M1ONLY=1" make && ls -l emdoom
 # 
 
-CFLAGS?=-m32 -Os -g -w -flto -DNORMALUNIX -DLINUX -DMAXPLAYERS=1 -DRANGECHECK -DDISABLE_NETWORK -fdata-sections -ffunction-sections $(EXTRA_CFLAGS) # -DUSEASM 
-LDFLAGS?=-L/usr/X11R6/lib -Wl,--gc-sections $(CFLAGS)
-LIBS?=-lXext -lX11 -lnsl -lm -lpthread
-CFLAGS_HOST?=-m32 -DNORMALUNIX -DLINUX $(EXTRA_CFLAGS)
+CFLAGS:=-fno-stack-protector -fdata-sections -ffunction-sections -g -Os -march=rv32imac -mabi=ilp32 -I/home/mimi/.espressif/tools/riscv32-esp-elf/esp-15.2.0_20251204/riscv32-esp-elf/riscv32-esp-elf/include -DRV32IMA_BUILD -DDISABLE_NETWORK -I/home/mimi/.espressif/tools/riscv32-esp-elf/esp-15.2.0_20251204/riscv32-esp-elf/lib/gcc/riscv32-esp-elf/15.2.0/include -Wno-error=implicit-function-declaration -Wno-error=char-subscripts -Wno-error=dangling-pointer= -Wno-incompatible-pointer-types -Wno-error=maybe-uninitialized -Wno-error=parentheses -Wno-error=sizeof-pointer-memaccess -Wno-error=pointer-sign -Wno-error=unused-but-set-parameter -Wno-error=unused-const-variable= -Wno-error=enum-compare -Wno-int-conversion $(EXTRA_CFLAGS) # -DUSEASM 
+#CFLAGS?=-std=gnu99 -m32 -Os -g -w -flto -DNORMALUNIX -DLINUX -DMAXPLAYERS=1 -DRANGECHECK -DDISABLE_NETWORK -fdata-sections -ffunction-sections -Wno-error=implicit-function-declaration -Wno-error=char-subscripts -Wno-error=dangling-pointer= -Wno-incompatible-pointer-types -Wno-error=maybe-uninitialized -Wno-error=parentheses -Wno-error=sizeof-pointer-memaccess -Wno-error=pointer-sign -Wno-error=unused-but-set-parameter -Wno-error=unused-const-variable= -Wno-error=enum-compare -Wno-int-conversion $(EXTRA_CFLAGS) # -DUSEASM 
+LDFLAGS?=-T flatfile-rv32ima.lds -nostdlib -Wl,--gc-sections $(CFLAGS)
+LIBS:=
+CFLAGS_HOST?=-std=gnu99 -m32 -I/usr/include -DNORMALUNIX -DLINUX -DDISABLE_NETWORK -Wno-error=implicit-function-declaration -Wno-error=char-subscripts -Wno-error=dangling-pointer= -Wno-incompatible-pointer-types -Wno-error=maybe-uninitialized -Wno-error=parentheses -Wno-error=sizeof-pointer-memaccess -Wno-error=pointer-sign -Wno-error=unused-but-set-parameter -Wno-error=unused-const-variable= -Wno-error=enum-compare -Wno-int-conversion $(EXTRA_CFLAGS)
 LDFLAGS_HOST?=-L/usr/X11R6/lib
 LIBS_HOST?=-lXext -lX11 -lnsl -lm -lpthread
 CS?=i_video.c

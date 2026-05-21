@@ -145,7 +145,7 @@ int 		eventtail;
 void D_PostEvent (event_t* ev)
 {
     events[eventhead] = *ev;
-    eventhead = (++eventhead)&(MAXEVENTS-1);
+    eventhead = (eventhead+1)&(MAXEVENTS-1);
 }
 
 
@@ -162,7 +162,7 @@ void D_ProcessEvents (void)
 	 && (W_CheckNumForName("map01")<0) )
       return;
 	
-    for ( ; eventtail != eventhead ; eventtail = (++eventtail)&(MAXEVENTS-1) )
+    for ( ; eventtail != eventhead ; eventtail = (eventtail+1)&(MAXEVENTS-1) )
     {
 	ev = &events[eventtail];
 	if (M_Responder (ev))

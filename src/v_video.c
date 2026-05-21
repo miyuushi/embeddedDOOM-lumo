@@ -24,8 +24,8 @@
 //-----------------------------------------------------------------------------
 
 
-static const char
-rcsid[] = "$Id: v_video.c,v 1.5 1997/02/03 22:45:13 b1 Exp $";
+// static const char
+// rcsid[] = "$Id: v_video.c,v 1.5 1997/02/03 22:45:13 b1 Exp $";
 
 
 #include "i_system.h"
@@ -207,6 +207,9 @@ V_DrawPatch
   int		scrn,
   patch_t*	patch ) 
 { 
+    if (patch == NULL) {
+        return;
+    }
 
     int		count;
     int		col; 
@@ -231,7 +234,7 @@ V_DrawPatch
       return;
     }
 #endif 
- 
+
     if (!scrn)
 	V_MarkRect (x, y, SHORT(patch->width), SHORT(patch->height)); 
 
@@ -242,7 +245,9 @@ V_DrawPatch
 
     for ( ; col<w ; x++, col++, desttop++)
     { 
-	column = (column_t *)((byte *)patch + LONG(patch->columnofs[col])); 
+    int safe_offset;
+    memcpy(&safe_offset, &patch->columnofs[col], sizeof(int));
+	column = (column_t *)((byte *)patch + safe_offset); 
  
 	// step through the posts in a column 
 	while (column->topdelta != 0xff ) 
@@ -485,14 +490,15 @@ void V_Init (void)
     byte*	base;
 		
     // stick these in low dos memory on PCs
+    screens[0] = NULL;
 
 #ifdef COMBINE_SCREENS
     base = 	I_AllocLow(SCREENWIDTH*SCREENHEIGHT);
-    for (i=0 ; i<4 ; i++)
+    for (i=1 ; i<4 ; i++)
 	screens[i] = base;// + i*SCREENWIDTH*SCREENHEIGHT;
 #else
     base = I_AllocLow (SCREENWIDTH*SCREENHEIGHT*4);
-    for (i=0 ; i<4 ; i++)
+    for (i=1 ; i<4 ; i++)
 	screens[i] = base + i*SCREENWIDTH*SCREENHEIGHT;
 #endif
 }

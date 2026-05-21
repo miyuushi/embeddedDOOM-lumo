@@ -158,7 +158,20 @@ void OGDeleteSema( og_sema_t os )
 #include <stdlib.h>
 #include <pthread.h>
 #include <sys/time.h>
-#include <semaphore.h>
+#if 0
+  #include "freertos/FreeRTOS.h"
+  #include "freertos/semphr.h"
+  
+  // Create a compatibility type mapping so the code doesn't break
+  typedef SemaphoreHandle_t sem_t;
+
+	#define sem_init(sem, pshared, value)   ((*(sem) = xSemaphoreCreateCounting(10, value)) != NULL ? 0 : -1)
+  #define sem_wait(sem)                   (xSemaphoreTake(*(sem), portMAX_DELAY) == pdTRUE ? 0 : -1)
+  #define sem_post(sem)                   (xSemaphoreGive(*(sem)) == pdTRUE ? 0 : -1)
+  #define sem_destroy(sem)                (vSemaphoreDelete(*(sem)), 0)
+#else
+  #include <semaphore.h>
+#endif
 
 pthread_mutex_t g_RawMutexStart = PTHREAD_MUTEX_INITIALIZER;
 

@@ -43,3 +43,37 @@ main
 
     return 0;
 } 
+
+#if defined(ESP_PLATFORM)
+#include <lm_system.h>
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+
+static const char *doom_argv[10];
+static lm_app_t* app;
+
+void doom_task(void *pvParameters) {
+  const char *iwad = NULL;
+  const char *pwad = NULL;
+
+  myargc = 4;
+  myargv = doom_argv;
+  doom_argv[0] = "doom";
+  doom_argv[1] = "-warp";
+  doom_argv[2] = "1";
+  doom_argv[3] = "1";
+
+  D_DoomMain();
+  vTaskDelete(NULL);
+}
+
+void app_main(void) {
+  app = lm_system_init(NULL, NULL);
+
+  // SCREENWIDTH = 320;
+  // SCREENHEIGHT = 200;
+
+  xTaskCreate(doom_task, "doom_task", 8192, NULL, 5, NULL);
+
+}
+#endif

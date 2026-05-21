@@ -34,5 +34,6 @@
 // Location for any defines turned variables.
 
 // None.
-
+// int SCREENWIDTH = 320;
+// int SCREENHEIGHT = 240;
 

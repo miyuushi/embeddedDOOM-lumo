@@ -21,8 +21,8 @@
 //
 //-----------------------------------------------------------------------------
 
-static const char
-rcsid[] = "$Id: z_zone.c,v 1.4 1997/02/03 16:47:58 b1 Exp $";
+// static const char
+// rcsid[] = "$Id: z_zone.c,v 1.4 1997/02/03 16:47:58 b1 Exp $";
 
 #include "z_zone.h"
 #include "i_system.h"
@@ -97,6 +97,10 @@ void Z_Init (void)
     int		size;
 
     mainzone = (memzone_t *)I_ZoneBase (&size);
+		if (!mainzone) {
+			printf("Error: Could not allocate memory pool for Z_Init!\n");
+			while(1);
+    }
     mainzone->size = size;
 
     // set the entire zone to one free block

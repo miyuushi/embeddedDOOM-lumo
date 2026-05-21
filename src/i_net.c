@@ -27,13 +27,13 @@
 #include <string.h>
 #include <stdio.h>
 
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
+// #include <sys/socket.h>
+// #include <netinet/in.h>
+// #include <arpa/inet.h>
 #include <errno.h>
 #include <unistd.h>
-#include <netdb.h>
-#include <sys/ioctl.h>
+// #include <netdb.h>
+// #include <sys/ioctl.h>
 
 #include "i_system.h"
 #include "d_event.h"

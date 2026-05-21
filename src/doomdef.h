@@ -109,8 +109,12 @@ typedef enum
 // C++ might sucks for OOP, but it sure is a better C.
 // So there.
 
+#define MAX_SCREENWIDTH 320
+#define MAX_SCREENHEIGHT 240
 #define SCREENWIDTH  (SCREEN_MUL*BASE_WIDTH)  //320
 #define SCREENHEIGHT (int)(SCREEN_MUL*BASE_WIDTH*INV_ASPECT_RATIO) //200
+// extern int SCREENWIDTH;
+// extern int SCREENHEIGHT;
 
 
 // The maximum number of players, multiplayer/networking.

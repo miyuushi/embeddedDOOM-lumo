@@ -74,10 +74,12 @@ int filelength (int handle)
 
 #define strcmpi		strcasecmp
 
+#if !defined(ESP_PLATFORM)
 void strupr (char* s)
 {
 	while (*s) { *s = toupper(*s); s++; }
 }
+#endif
 
 
 void

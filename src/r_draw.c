@@ -258,6 +258,7 @@ void R_DrawColumnLow (void)
 //
 #define FUZZTABLE		50 
 #define FUZZOFF	(SCREENWIDTH)
+// #define FUZZOFF 1
 
 
 int	fuzzoffset[FUZZTABLE] =

@@ -18,7 +18,7 @@
 #ifdef GENERATE_BAKED
 #define FIXED_HEAP 40000000 //Heap size when running on computer to store full size.
 #else
-#define FIXED_HEAP (384*1024)   //Actual heap for embedded device.
+#define FIXED_HEAP (1024*112)   //Actual heap for embedded device.
 #endif
 #endif
 
